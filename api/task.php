@@ -1,26 +1,26 @@
 <?php
 
-include './db/Broker.php';
+require '../db/Broker.php';
 
-if (!isset($_POST['action'])) {
+if (!isset($_POST['akcija'])) {
   exit;
 }
-$action = $_POST['action'];
-if ($action == 'get') {
-  $query = "select * FROM task inner i join user u on i.user_id = u.id";
-  if (isset($_POST["search"])) {
-    $query = $query . " WHERE i.title LIKE '%" . $_POST["search"] . "%'";
+$akcija = $_POST['akcija'];
+if ($akcija == 'get') {
+  $query = "select * FROM task t inner join user u on t.user_id = u.id";
+  if (isset($_POST["pretraga"])) {
+    $query = $query . " WHERE t.title LIKE '%" . $_POST["pretraga"] . "%'";
   }
   echo json_encode($broker->loadData($query));
   exit;
 }
 
-if ($action == 'delete' && isset($_POST['id'])) {
+if ($akcija == 'delete' && isset($_POST['id'])) {
   $id = $_POST['id'];
   echo json_encode($broker->persistData("delete FROM task WHERE id=" . $id));
   exit;
 }
-if ($action == 'create') {
+if ($akcija == 'create') {
   $title = $_POST['title'];
   $description = $_POST['description'];
   $due_date = $_POST['due_date'];
@@ -30,7 +30,7 @@ if ($action == 'create') {
   exit;
 }
 
-if ($action == 'update' && isset($_POST['id'])) {
+if ($akcija == 'update' && isset($_POST['id'])) {
   $id = $_POST['id'];
   $title = $_POST['title'];
   $description = $_POST['description'];
