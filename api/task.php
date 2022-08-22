@@ -15,6 +15,13 @@ if ($akcija == 'get') {
   exit;
 }
 
+if ($akcija == 'one' && isset($_POST['id'])) {
+  $id = $_POST['id'];
+  $query = "select * FROM task where id =" . $id;
+  echo json_encode($broker->loadData($query));
+  exit;
+}
+
 if ($akcija == 'delete' && isset($_POST['id'])) {
   $id = $_POST['id'];
   echo $broker->persistData("delete FROM task WHERE id=" . $id);
