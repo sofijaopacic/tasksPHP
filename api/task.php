@@ -17,7 +17,7 @@ if ($akcija == 'get') {
 
 if ($akcija == 'delete' && isset($_POST['id'])) {
   $id = $_POST['id'];
-  echo json_encode($broker->persistData("delete FROM task WHERE id=" . $id));
+  echo $broker->persistData("delete FROM task WHERE id=" . $id);
   exit;
 }
 if ($akcija == 'create') {
@@ -25,8 +25,8 @@ if ($akcija == 'create') {
   $description = $_POST['description'];
   $due_date = $_POST['due_date'];
   $user_id = $_POST['user_id'];
-  echo json_encode($broker->persistData("insert INTO `task`(title, description, due_date, user_id) VALUES " .
-    "('" . $title . "','" . $description . "','" . $due_date . "'," . $user_id . ")"));
+  echo $broker->persistData("insert INTO `task`(title, description, due_date, user_id) VALUES " .
+    "('" . $title . "','" . $description . "','" . $due_date . "'," . $user_id . ")");
   exit;
 }
 
@@ -38,5 +38,5 @@ if ($akcija == 'update' && isset($_POST['id'])) {
   $user_id = $_POST['user_id'];
   $query = "update task set title= '" . $title . "', description='" . $description . "', due_date='" .
     $due_date . "', user_id=" . $user_id . " WHERE id=" . $id;
-  echo json_encode($broker->persistData($query));
+  echo $broker->persistData($query);
 }

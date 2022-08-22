@@ -9,13 +9,13 @@ $akcija = $_POST['akcija'];
 
 
 if ($akcija == 'get') {
-  echo json_encode($broker->loadData("SELECT * FROM user"));
+  echo json_encode($broker->loadData("select * FROM user"));
   exit;
 }
 
 if ($akcija == 'delete' && isset($_POST['id'])) {
   $id = $_POST['id'];
-  echo json_encode($broker->persistData("delete FROM user WHERE id=" . $id));
+  echo $broker->persistData("delete FROM user WHERE id=" . $id);
   exit;
 }
 if ($akcija == 'create') {
@@ -23,7 +23,7 @@ if ($akcija == 'create') {
   $last_name = $_POST['last_name'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];
-  echo json_encode($broker->persistData("insert INTO `user`(first_name, last_name, email, phone) VALUES " .
-    "('" . $first_name . "','" . $last_name . "','" . $email . "','" . $phone . "')"));
+  echo $broker->persistData("insert INTO `user`(first_name, last_name, email, phone) VALUES " .
+    "('" . $first_name . "','" . $last_name . "','" . $email . "','" . $phone . "')");
   exit;
 }

@@ -9,27 +9,27 @@ include 'header.php';
   <form id='forma'>
     <div class="form-group">
       <label for="title">Naslov</label>
-      <input class="form-control" id="title">
+      <input required class="form-control" id="title">
     </div>
     <div class="form-group">
       <label for="due_date">Rok</label>
-      <input class="form-control" type="datetime-local" id="due_date">
+      <input required class="form-control" type="datetime-local" id="due_date">
     </div>
     <div class="form-group">
       <label for="user_id">Korisnik</label>
-      <select class="form-control" type="datetime-local" id="user_id">
+      <select required class="form-control" type="datetime-local" id="user_id">
       </select>
     </div>
     <div class="form-group">
       <label for="description">Opis</label>
-      <textarea class="form-control" id="description"></textarea>
+      <textarea required class="form-control" id="description"></textarea>
     </div>
     <button type="submit" class="form-control btn btn-primary mt-2">Kreiraj</button>
   </form>
 </div>
 
 <script>
-  $(function () {
+  $(function() {
     ucitajUsere();
     $('#forma').submit(async e => {
       e.preventDefault();
@@ -47,7 +47,9 @@ include 'header.php';
   })
 
   async function ucitajUsere() {
-    let res = await $.post('./api/user.php', { akcija: 'get' });
+    let res = await $.post('./api/user.php', {
+      akcija: 'get'
+    });
     res = JSON.parse(res);
     $("#user_id").html(
       res.map(user => {
