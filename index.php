@@ -12,14 +12,17 @@ include 'header.php';
 </div>
 
 <script>
-  $(function () {
+  $(function() {
     ucitajTaskove();
     $('#pretraga').change(ucitajTaskove);
   });
 
   async function ucitajTaskove() {
     let pretraga = $('#pretraga').val() || undefined;
-    let res = await $.post('./api/task.php', { akcija: 'get', pretraga });
+    let res = await $.post('./api/task.php', {
+      akcija: 'get',
+      pretraga
+    });
     res = JSON.parse(res);
     const htmlVal = res.map(task => {
       return `
@@ -27,8 +30,11 @@ include 'header.php';
           <h2 class='text-center'>
           <a href='./task.php?id=${task.id}'>${task.title}</a>
           </h2>
-          <h3>User: ${task.email}<h3>
-          <h3>Due date:${task.due_date}</h3>
+          <span><b>User:</b> ${task.email}<span>
+          <br>
+          <span><b>Rok:</b>${task.due_date}</span>
+          <br>
+          <br>
           <p>
           ${task.description}  
           </p>
@@ -37,7 +43,6 @@ include 'header.php';
     });
     $('#taskovi').html(htmlVal);
   }
-
 </script>
 
 </body>
